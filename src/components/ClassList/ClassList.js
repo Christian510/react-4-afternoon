@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default class ClassList extends Component {
   constructor() {
@@ -15,7 +16,7 @@ export default class ClassList extends Component {
   }
 
   getStudents(){
-    axios.get(`http://localhost:3005/students?class=${this.props.match.params.class}`)
+    return axios.get(`http://localhost:3005/students?class=${this.props.match.params.class}`)
     .then( res =>{
       this.setState({
         students: res.data
@@ -27,7 +28,9 @@ export default class ClassList extends Component {
   render() {
 
     const students = this.state.students.map( (student, i)=> (
-      <p key={i}  >{student.first_name}{student.last_name} </p>
+      <Link to="/student/:id">
+      <h3 key={i}  >{student.first_name}{student.last_name} </h3>
+      </Link>
     ));
     return (
       <div className="box">
